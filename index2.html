@@ -1,0 +1,104 @@
+ 
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+   
+  
+<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+   crossorigin=""></script>
+   
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+   
+
+  <!--
+  -->
+   
+ <!DOCTYPE html>
+ <html>
+   
+	<head>
+	<style>
+	<!-- rozciaganie na ekranie -->
+	
+	body 
+	{
+   
+    margin: 0;
+	}
+	html, #map 
+	{
+    height: 100%;
+    width: 100%;
+	}
+	
+	</style>
+	<title> KS GeoPortal  </title> 
+	<meta charset="UTF-8">
+	<link rel="icon" type="image/ico" href="favicon.ico"/> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  
+	</head>
+
+   
+ <body>
+ <div id="map"> 
+ <script src="js/leaflet.js"></script> 
+ <link rel="stylesheet" href="css/leaflet.css">
+   
+ <script> 
+   
+   var mymap = L.map('map',{maxZoom:20}).setView([52.165242, 21.083021], 13);
+   
+   var OpenStreetMap = 
+   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', 
+   {foo: 'bar',
+   attribution: '<a href="http://openstreetmap.org/copyright">OpenStreetMap</a> | Kacper Sito 2021'
+   
+   } 
+   ); 
+   OpenStreetMap.addTo(mymap);
+   
+   	// NMT
+	var nmt = L.tileLayer.wms('https://mapy.geoportal.gov.pl/wss/service/PZGIK/NMT/GRID1/WMS/ShadedRelief', {
+		//subdomains: ['integracja01','integracja02'],
+		layers: 'Raster',
+		format: 'image/png',
+		transparent: 'true',
+		attribution: 'GUGiK'
+		});
+   
+
+
+
+
+L.control.scale().addTo(mymap);
+
+         
+
+ var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+ mymap.addLayer(layer);    
+         
+
+var attrOptions = {
+prefix: 'Kacper Sito | '
+};
+         
+
+var baseLayers = { 
+	"OpenStreetMap": OpenStreetMap,
+	"Numeryczny Model Terenu": nmt
+	}; 
+
+L.control.layers(baseLayers).addTo(mymap);
+
+
+// przycisk do lokalizacji
+L.control.locate().addTo(mymap);
+   
+</script> 
+</body> 
+</html>
+   
